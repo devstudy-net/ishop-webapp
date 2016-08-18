@@ -19,7 +19,7 @@ import net.devstudy.util.SessionUtils;
  * @author devstudy
  * @see http://devstudy.net
  */
-@WebServlet("/shopping-cart")
+@WebServlet("/current-cart")
 public class ShoppingCartServlet extends HttpServlet {
 	private static final long serialVersionUID = -3452089428526455508L;
 
@@ -39,11 +39,7 @@ public class ShoppingCartServlet extends HttpServlet {
 	}
 	
 	protected void showShoppingCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		if(SessionUtils.isCurrentShoppingCartCreated(req)) {
-			resp.getWriter().println(SessionUtils.getCurrentShoppingCart(req));
-		} else {
-			resp.getWriter().println("ShoppingCart is null");
-		}
+		req.getRequestDispatcher("/WEB-INF/shopping-cart.jsp").forward(req, resp);
 	}
 	
 	protected void addProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
