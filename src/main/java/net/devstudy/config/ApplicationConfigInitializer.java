@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 import net.devstudy.filter.SimpleFilter3;
+import net.devstudy.listener.ServletContextListenerImpl3;
 import net.devstudy.servlet.JavaConfigServlet;
 
 public class ApplicationConfigInitializer implements ServletContainerInitializer {
@@ -20,5 +21,7 @@ public class ApplicationConfigInitializer implements ServletContainerInitializer
 
 		FilterRegistration.Dynamic filterConfig = ctx.addFilter("SimpleFilter3", new SimpleFilter3());
 		filterConfig.addMappingForUrlPatterns(null, true, "/*");
+		
+		ctx.addListener(new ServletContextListenerImpl3());
 	}
 }
