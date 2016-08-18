@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.devstudy.ishop.util.SessionUtils;
 import net.devstudy.model.ShoppingCart;
 import net.devstudy.model.ShoppingCartItem;
-import net.devstudy.util.SessionUtils;
 
 /**
  * 
