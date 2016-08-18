@@ -15,4 +15,9 @@
 		<tracking-mode>COOKIE</tracking-mode>
 		<session-timeout>60</session-timeout>
 	</session-config>
+
+	<context-param>
+		<param-name>AppID</param-name>
+		<param-value>123</param-value>
+	</context-param>
 </web-app>
