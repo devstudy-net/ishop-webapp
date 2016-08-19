@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.devstudy.ishop.Constants;
 import net.devstudy.ishop.service.impl.ServiceManager;
 
 /**
@@ -23,6 +24,8 @@ public class IShopApplicationListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent sce) {
 		try {
 			serviceManager = ServiceManager.getInstance(sce.getServletContext());
+			sce.getServletContext().setAttribute(Constants.CATEGORY_LIST, serviceManager.getProductService().listAllCategories());
+			sce.getServletContext().setAttribute(Constants.PRODUCER_LIST, serviceManager.getProductService().listAllProducers());
 		} catch (RuntimeException e) {
 			LOGGER.error("Web application 'ishop' init failed: "+e.getMessage(), e);
 			throw e;

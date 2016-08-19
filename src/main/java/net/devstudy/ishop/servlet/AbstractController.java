@@ -2,7 +2,9 @@ package net.devstudy.ishop.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
+import net.devstudy.ishop.form.SearchForm;
 import net.devstudy.ishop.service.OrderService;
 import net.devstudy.ishop.service.ProductService;
 import net.devstudy.ishop.service.impl.ServiceManager;
@@ -30,5 +32,28 @@ public abstract class AbstractController extends HttpServlet {
 
 	public final OrderService getOrderService() {
 		return orderService;
+	}
+	
+	public final int getPageCount(int totalCount, int itemsPerPage) {
+		int res = totalCount / itemsPerPage;
+		if(res * itemsPerPage != totalCount) {
+			res++;
+		}
+		return res;
+	}
+	
+	public final int getPage(HttpServletRequest request) {
+		try {
+			return Integer.parseInt(request.getParameter("page"));
+		} catch (NumberFormatException e) {
+			return 1;
+		}
+	}
+	
+	public final SearchForm createSearchForm(HttpServletRequest request) {
+		return new SearchForm(
+				request.getParameter("query"), 
+				request.getParameterValues("category"), 
+				request.getParameterValues("producer"));
 	}
 }
