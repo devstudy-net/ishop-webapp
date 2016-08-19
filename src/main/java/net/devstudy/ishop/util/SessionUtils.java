@@ -4,9 +4,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.devstudy.Constants;
-import net.devstudy.model.ShoppingCart;
+import net.devstudy.ishop.Constants;
+import net.devstudy.ishop.model.ShoppingCart;
 
+/**
+ * 
+ * @author devstudy
+ * @see http://devstudy.net
+ */
 public class SessionUtils {
 	public static ShoppingCart getCurrentShoppingCart(HttpServletRequest req) {
 		ShoppingCart shoppingCart = (ShoppingCart) req.getSession().getAttribute(Constants.CURRENT_SHOPPING_CART);

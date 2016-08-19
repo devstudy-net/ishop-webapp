@@ -4,6 +4,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 
+ * @author devstudy
+ * @see http://devstudy.net
+ */
 public final class WebUtils {
 	public static Cookie findCookie(HttpServletRequest req, String cookieName) {
 		Cookie[] cookies = req.getCookies();
