@@ -1,17 +1,25 @@
 package net.devstudy.ishop.entity;
 
+import net.devstudy.ishop.model.CurrentAccount;
+
 /**
  * 
  * @author devstudy
  * @see http://devstudy.net
  */
-public class Account extends AbstractEntity<Integer> {
+public class Account extends AbstractEntity<Integer> implements CurrentAccount {
 	private static final long serialVersionUID = -3196229925974576545L;
 	private String name;
 	private String email;
 
 	public Account() {
 		super();
+	}
+
+	public Account(String name, String email) {
+		super();
+		this.name = name;
+		this.email = email;
 	}
 
 	public String getName() {
@@ -28,6 +36,11 @@ public class Account extends AbstractEntity<Integer> {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	@Override
+	public String getDescription() {
+		return name + "("+email+")";
 	}
 
 	@Override

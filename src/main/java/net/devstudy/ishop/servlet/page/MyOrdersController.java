@@ -9,23 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.devstudy.ishop.servlet.AbstractController;
 import net.devstudy.ishop.util.RoutingUtils;
-import net.devstudy.ishop.util.SessionUtils;
 
 /**
  * 
  * @author devstudy
  * @see http://devstudy.net
  */
-@WebServlet("/shopping-cart")
-public class ShowShoppingCartController extends AbstractController {
-	private static final long serialVersionUID = -1916373553298888514L;
+@WebServlet("/my-orders")
+public class MyOrdersController extends AbstractController {
+	private static final long serialVersionUID = -1782066337808445826L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		if (SessionUtils.isCurrentShoppingCartCreated(req)) {
-			RoutingUtils.forwardToPage("shopping-cart.jsp", req, resp);
-		} else {
-			RoutingUtils.redirect("/products", req, resp);
-		}
+		RoutingUtils.forwardToPage("my-orders.jsp", req, resp);
 	}
 }

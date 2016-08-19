@@ -3,7 +3,7 @@ package net.devstudy.ishop.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import net.devstudy.ishop.Constants;
@@ -17,7 +17,7 @@ import net.devstudy.ishop.exception.ValidationException;
  */
 public class ShoppingCart implements Serializable {
 	private static final long serialVersionUID = 1535770438453611801L;
-	private Map<Integer, ShoppingCartItem> products = new HashMap<>();
+	private Map<Integer, ShoppingCartItem> products = new LinkedHashMap<>();
 	private int totalCount = 0;
 	private BigDecimal totalCost = BigDecimal.ZERO;
 

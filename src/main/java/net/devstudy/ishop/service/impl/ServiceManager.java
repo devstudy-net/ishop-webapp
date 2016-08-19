@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import net.devstudy.ishop.service.OrderService;
 import net.devstudy.ishop.service.ProductService;
+import net.devstudy.ishop.service.SocialService;
 
 /**
  * 
@@ -35,6 +36,9 @@ public class ServiceManager {
 	public OrderService getOrderService() {
 		return orderService;
 	}
+	public SocialService getSocialService() {
+		return socialService;
+	}
 	public String getApplicationProperty(String key) {
 		return applicationProperties.getProperty(key);
 	}
@@ -50,11 +54,13 @@ public class ServiceManager {
 	private final BasicDataSource dataSource;
 	private final ProductService productService;
 	private final OrderService orderService;
+	private final SocialService socialService;
 	private ServiceManager(ServletContext context) {
 		loadApplicationProperties();
 		dataSource = createDataSource();
 		productService = new ProductServiceImpl(dataSource);
 		orderService = new OrderServiceImpl(dataSource);
+		socialService = new FacebookSocialService(this);
 	}
 	
 	private BasicDataSource createDataSource(){

@@ -20,6 +20,8 @@ public final class Constants {
 
 	public static final String PRODUCER_LIST = "PRODUCER_LIST";
 	
+	public static final String CURRENT_ACCOUNT = "CURRENT_ACCOUNT";
+	
 	/**
 	 * 
 	 * @author devstudy
