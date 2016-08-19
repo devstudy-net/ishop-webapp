@@ -1,6 +1,7 @@
 package net.devstudy.ishop.form;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,9 +22,9 @@ public class SearchForm {
 	}
 	private List<Integer> convert(String[] args) {
 		if(args == null) {
-			return null;
+			return Collections.emptyList();
 		} else {
-			List<Integer> res = new ArrayList<>();
+			List<Integer> res = new ArrayList<>(args.length);
 			for(String arg : args) {
 				res.add(Integer.parseInt(arg));
 			}
@@ -47,5 +48,11 @@ public class SearchForm {
 	}
 	public void setProducers(List<Integer> producers) {
 		this.producers = producers;
+	}
+	public boolean isCategoriesEmpty(){
+		return categories.isEmpty();
+	}
+	public boolean isProducersEmpty(){
+		return producers.isEmpty();
 	}
 }

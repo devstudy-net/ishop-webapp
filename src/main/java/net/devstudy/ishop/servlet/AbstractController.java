@@ -4,6 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
+import net.devstudy.ishop.form.ProductForm;
 import net.devstudy.ishop.form.SearchForm;
 import net.devstudy.ishop.service.OrderService;
 import net.devstudy.ishop.service.ProductService;
@@ -55,5 +56,11 @@ public abstract class AbstractController extends HttpServlet {
 				request.getParameter("query"), 
 				request.getParameterValues("category"), 
 				request.getParameterValues("producer"));
+	}
+	
+	public final ProductForm createProductForm(HttpServletRequest request) {
+		return new ProductForm(
+				Integer.parseInt(request.getParameter("idProduct")),
+				Integer.parseInt(request.getParameter("count")));
 	}
 }

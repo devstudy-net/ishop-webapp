@@ -2,6 +2,8 @@ package net.devstudy.ishop.model;
 
 import java.io.Serializable;
 
+import net.devstudy.ishop.entity.Product;
+
 /**
  * 
  * @author devstudy
@@ -9,21 +11,21 @@ import java.io.Serializable;
  */
 public class ShoppingCartItem implements Serializable {
 	private static final long serialVersionUID = 6436798264138502851L;
-	private int idProduct;
+	private Product product;
 	private int count;
 	public ShoppingCartItem() {
 		super();
 	}
-	public ShoppingCartItem(int idProduct, int count) {
+	public ShoppingCartItem(Product product, int count) {
 		super();
-		this.idProduct = idProduct;
+		this.product = product;
 		this.count = count;
 	}
-	public int getIdProduct() {
-		return idProduct;
+	public Product getProduct() {
+		return product;
 	}
-	public void setIdProduct(int idProduct) {
-		this.idProduct = idProduct;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 	public int getCount() {
 		return count;
@@ -33,6 +35,6 @@ public class ShoppingCartItem implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "ShoppingCartItem [idProduct=" + idProduct + ", count=" + count + "]";
+		return String.format("ShoppingCartItem [product=%s, count=%s]", product, count);
 	}
 }

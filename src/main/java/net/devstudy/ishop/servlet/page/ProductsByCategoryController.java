@@ -28,6 +28,8 @@ public class ProductsByCategoryController extends AbstractController {
 		String categoryUrl = req.getRequestURI().substring(SUBSTRING_INDEX);
 		List<Product> products = getProductService().listProductsByCategory(categoryUrl, 1, Constants.MAX_PRODUCTS_PER_HTML_PAGE);
 		req.setAttribute("products", products);
+		int totalCount = getProductService().countProductsByCategory(categoryUrl);
+		req.setAttribute("pageCount", getPageCount(totalCount, Constants.MAX_PRODUCTS_PER_HTML_PAGE));
 		req.setAttribute("selectedCategoryUrl", categoryUrl);
 		RoutingUtils.forwardToPage("products.jsp", req, resp);
 	}
