@@ -14,6 +14,8 @@ public final class Constants {
 	
 	public static final String ACCOUNT_ACTIONS_HISTORY = "ACCOUNT_ACTIONS_HISTORY";
 	
+	public static final int MAX_PRODUCTS_PER_HTML_PAGE = 12;
+	
 	/**
 	 * 
 	 * @author devstudy

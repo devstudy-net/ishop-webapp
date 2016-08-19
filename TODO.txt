@@ -1,10 +1,2 @@
-/products
-/ajax/html/more/products
+List<Product> listProductsByCategory(String categoryUrl, int page, int limit);
 
-/products/*
-/ajax/html/more/products/*
-
-/search
-/ajax/html/more/search
-
-/shopping-cart
