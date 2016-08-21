@@ -44,6 +44,10 @@ class OrderServiceImpl implements OrderService {
 			ResultSetHandlerFactory.getSingleResultSetHandler(ResultSetHandlerFactory.ORDER_RESULT_SET_HANDLER);
 	private final ResultSetHandler<List<OrderItem>> orderItemListResultSetHandler = 
 			ResultSetHandlerFactory.getListResultSetHandler(ResultSetHandlerFactory.ORDER_ITEM_RESULT_SET_HANDLER);
+	private final ResultSetHandler<List<Order>> ordersResultSetHandler = 
+			ResultSetHandlerFactory.getListResultSetHandler(ResultSetHandlerFactory.ORDER_RESULT_SET_HANDLER);
+	private final ResultSetHandler<Integer> countResultSetHandler = 
+			ResultSetHandlerFactory.getCountResultSetHandler();
 
 	private final DataSource dataSource;
 	
@@ -163,13 +167,21 @@ class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public List<Order> listMyOrders(CurrentAccount currentAccount, int page, int limit) {
-		// TODO Auto-generated method stub
-		return null;
+		int offset = (page - 1) * limit;
+		try (Connection c = dataSource.getConnection()) {
+			List<Order> orders = JDBCUtils.select(c, "select * from \"order\" where id_account=? order by id desc limit ? offset ?", ordersResultSetHandler, currentAccount.getId(), limit, offset);
+			return orders;
+		} catch (SQLException e) {
+			throw new InternalServerErrorException("Can't execute SQL request: " + e.getMessage(), e);
+		}
 	}
 	
 	@Override
 	public int countMyOrders(CurrentAccount currentAccount) {
-		// TODO Auto-generated method stub
-		return 0;
+		try (Connection c = dataSource.getConnection()) {
+			return JDBCUtils.select(c, "select count(*) from \"order\" where id_account=?", countResultSetHandler, currentAccount.getId());
+		} catch (SQLException e) {
+			throw new InternalServerErrorException("Can't execute SQL request: " + e.getMessage(), e);
+		}
 	}
 }

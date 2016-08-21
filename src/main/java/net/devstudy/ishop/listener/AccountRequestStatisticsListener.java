@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServletRequest;
 
 import net.devstudy.ishop.Constants;
+import net.devstudy.ishop.util.UrlUtils;
 
 /**
  * 
@@ -28,12 +29,15 @@ public class AccountRequestStatisticsListener implements ServletRequestListener 
 	@Override
 	public void requestInitialized(ServletRequestEvent sre) {
 		HttpServletRequest req = ((HttpServletRequest)sre.getServletRequest());
-		List<String> actions = (List<String>) req.getSession().getAttribute(Constants.ACCOUNT_ACTIONS_HISTORY);
-		if(actions == null) {
-			actions = new ArrayList<>();
-			req.getSession().setAttribute(Constants.ACCOUNT_ACTIONS_HISTORY, actions);
+		String url = req.getRequestURI();
+		if(!UrlUtils.isStaticUrl(url) && !UrlUtils.isMediaUrl(url)) {
+			List<String> actions = (List<String>) req.getSession().getAttribute(Constants.ACCOUNT_ACTIONS_HISTORY);
+			if(actions == null) {
+				actions = new ArrayList<>();
+				req.getSession().setAttribute(Constants.ACCOUNT_ACTIONS_HISTORY, actions);
+			}
+			actions.add(getCurrentAction(req));
 		}
-		actions.add(getCurrentAction(req));
 	}
 
 	private String getCurrentAction(HttpServletRequest req) {

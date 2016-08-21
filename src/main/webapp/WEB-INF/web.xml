@@ -24,7 +24,15 @@
 	
 	<filter-mapping>
 		<filter-name>CheckAuthentificationFilter</filter-name>
+		<url-pattern>/order</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CheckAuthentificationFilter</filter-name>
 		<url-pattern>/my-orders</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CheckAuthentificationFilter</filter-name>
+		<url-pattern>/ajax/html/more/my-orders</url-pattern>
 	</filter-mapping>
 
 	<session-config>

@@ -1,4 +1,0 @@
-1 CheckAuthentificationFilter
-2 sign-in tag
-3 post signout
-4 redirect to url after successful sign-in

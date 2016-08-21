@@ -12,6 +12,7 @@ import net.devstudy.ishop.Constants;
 import net.devstudy.ishop.util.RoutingUtils;
 import net.devstudy.ishop.util.SessionUtils;
 import net.devstudy.ishop.util.UrlUtils;
+import net.devstudy.ishop.util.WebUtils;
 
 /**
  * 
@@ -27,7 +28,7 @@ public class CheckAuthentificationFilter extends AbstractFilter {
 		if (SessionUtils.isCurrentAccountCreated(req)) {
 			chain.doFilter(req, resp);
 		} else {
-			String requestUrl = req.getRequestURI();
+			String requestUrl = WebUtils.getCurrentRequestUrl(req);
 			if (UrlUtils.isAjaxUrl(requestUrl)) {
 				resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				resp.getWriter().println("401");

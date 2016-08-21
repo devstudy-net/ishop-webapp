@@ -1,4 +1,4 @@
-package net.devstudy.ishop.servlet.page;
+package net.devstudy.ishop.servlet.ajax;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.devstudy.ishop.Constants;
 import net.devstudy.ishop.entity.Order;
-import net.devstudy.ishop.model.CurrentAccount;
 import net.devstudy.ishop.servlet.AbstractController;
 import net.devstudy.ishop.util.RoutingUtils;
 import net.devstudy.ishop.util.SessionUtils;
@@ -20,17 +19,14 @@ import net.devstudy.ishop.util.SessionUtils;
  * @author devstudy
  * @see http://devstudy.net
  */
-@WebServlet("/my-orders")
-public class MyOrdersController extends AbstractController {
-	private static final long serialVersionUID = -1782066337808445826L;
+@WebServlet("/ajax/html/more/my-orders")
+public class MyOrdersMoreController extends AbstractController {
+	private static final long serialVersionUID = -2651974520717714088L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		CurrentAccount currentAccount = SessionUtils.getCurrentAccount(req);
-		List<Order> orders = getOrderService().listMyOrders(currentAccount, 1, Constants.ORDERS_PER_PAGE);
+		List<Order> orders = getOrderService().listMyOrders(SessionUtils.getCurrentAccount(req), getPage(req), Constants.ORDERS_PER_PAGE);
 		req.setAttribute("orders", orders);
-		int orderCount = getOrderService().countMyOrders(currentAccount);
-		req.setAttribute("pageCount", getPageCount(orderCount, Constants.ORDERS_PER_PAGE));
-		RoutingUtils.forwardToPage("my-orders.jsp", req, resp);
+		RoutingUtils.forwardToFragment("my-orders-tbody.jsp", req, resp);
 	}
 }
