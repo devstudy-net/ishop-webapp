@@ -29,10 +29,9 @@ public class ErrorHandlerFilter extends AbstractFilter {
 	private static final String INTERNAL_ERROR = "Internal error";
 
 	@Override
-	public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain)
-			throws IOException, ServletException {
+	public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
 		try {
-			chain.doFilter(req, new ThrowExceptionInsteadOnSendErrorResponse(resp));
+			chain.doFilter(req, new ThrowExceptionInsteadOfSendErrorResponse(resp));
 		} catch (Throwable th) {
 			String requestUrl = req.getRequestURI();
 			if (th instanceof ValidationException) {
@@ -52,8 +51,7 @@ public class ErrorHandlerFilter extends AbstractFilter {
 		}
 	}
 
-	private void handleException(String requestUrl, Throwable th, HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	private void handleException(String requestUrl, Throwable th, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int statusCode = getStatusCode(th);
 		resp.setStatus(statusCode);
 		if (UrlUtils.isAjaxJsonUrl(requestUrl)) {
@@ -68,8 +66,8 @@ public class ErrorHandlerFilter extends AbstractFilter {
 		}
 	}
 
-	private static class ThrowExceptionInsteadOnSendErrorResponse extends HttpServletResponseWrapper {
-		public ThrowExceptionInsteadOnSendErrorResponse(HttpServletResponse response) {
+	private static class ThrowExceptionInsteadOfSendErrorResponse extends HttpServletResponseWrapper {
+		public ThrowExceptionInsteadOfSendErrorResponse(HttpServletResponse response) {
 			super(response);
 		}
 

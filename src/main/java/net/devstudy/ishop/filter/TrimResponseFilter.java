@@ -22,8 +22,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
 public class TrimResponseFilter extends AbstractFilter {
 
 	@Override
-	public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain)
-			throws IOException, ServletException {
+	public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
 		TrimResponse response = new TrimResponse(resp);
 		chain.doFilter(req, response);
 		response.complete();

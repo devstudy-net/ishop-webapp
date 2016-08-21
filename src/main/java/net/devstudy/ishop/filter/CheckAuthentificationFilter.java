@@ -23,15 +23,14 @@ import net.devstudy.ishop.util.WebUtils;
 public class CheckAuthentificationFilter extends AbstractFilter {
 
 	@Override
-	public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain)
-			throws IOException, ServletException {
+	public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
 		if (SessionUtils.isCurrentAccountCreated(req)) {
 			chain.doFilter(req, resp);
 		} else {
 			String requestUrl = WebUtils.getCurrentRequestUrl(req);
 			if (UrlUtils.isAjaxUrl(requestUrl)) {
 				resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-				resp.getWriter().println("401");
+				RoutingUtils.sendHTMLFragment("401", req, resp);
 			} else {
 				req.getSession().setAttribute(Constants.SUCCESS_REDIRECT_URL_AFTER_SIGNIN, requestUrl);
 				RoutingUtils.redirect("/sign-in", req, resp);

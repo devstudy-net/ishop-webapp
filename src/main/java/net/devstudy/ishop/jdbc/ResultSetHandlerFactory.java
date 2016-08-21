@@ -19,7 +19,7 @@ import net.devstudy.ishop.entity.Product;
  */
 public final class ResultSetHandlerFactory {
 
-	public final static ResultSetHandler<Product> PRODUCT_RESULT_SET_HANDLER = new ResultSetHandler<Product>() {
+	public static ResultSetHandler<Product> PRODUCT_RESULT_SET_HANDLER = new ResultSetHandler<Product>() {
 		@Override
 		public Product handle(ResultSet rs) throws SQLException {
 			Product p = new Product();
@@ -34,7 +34,7 @@ public final class ResultSetHandlerFactory {
 		}
 	};
 	
-	public final static ResultSetHandler<Category> CATEGORY_RESULT_SET_HANDLER = new ResultSetHandler<Category>() {
+	public static ResultSetHandler<Category> CATEGORY_RESULT_SET_HANDLER = new ResultSetHandler<Category>() {
 		@Override
 		public Category handle(ResultSet rs) throws SQLException {
 			Category c = new Category();
@@ -46,7 +46,7 @@ public final class ResultSetHandlerFactory {
 		}
 	};
 
-	public final static ResultSetHandler<Producer> PRODUCER_RESULT_SET_HANDLER = new ResultSetHandler<Producer>() {
+	public static ResultSetHandler<Producer> PRODUCER_RESULT_SET_HANDLER = new ResultSetHandler<Producer>() {
 		@Override
 		public Producer handle(ResultSet rs) throws SQLException {
 			Producer p = new Producer();
@@ -57,7 +57,7 @@ public final class ResultSetHandlerFactory {
 		}
 	};
 	
-	public final static ResultSetHandler<Account> ACCOUNT_RESULT_SET_HANDLER = new ResultSetHandler<Account>() {
+	public static ResultSetHandler<Account> ACCOUNT_RESULT_SET_HANDLER = new ResultSetHandler<Account>() {
 		@Override
 		public Account handle(ResultSet rs) throws SQLException {
 			Account a = new Account();
@@ -68,7 +68,7 @@ public final class ResultSetHandlerFactory {
 		}
 	};
 	
-	public final static ResultSetHandler<OrderItem> ORDER_ITEM_RESULT_SET_HANDLER = new ResultSetHandler<OrderItem>() {
+	public static ResultSetHandler<OrderItem> ORDER_ITEM_RESULT_SET_HANDLER = new ResultSetHandler<OrderItem>() {
 		@Override
 		public OrderItem handle(ResultSet rs) throws SQLException {
 			OrderItem orderItem = new OrderItem();
@@ -81,7 +81,7 @@ public final class ResultSetHandlerFactory {
 		}
 	};
 
-	public final static ResultSetHandler<Order> ORDER_RESULT_SET_HANDLER = new ResultSetHandler<Order>() {
+	public static ResultSetHandler<Order> ORDER_RESULT_SET_HANDLER = new ResultSetHandler<Order>() {
 		@Override
 		public Order handle(ResultSet rs) throws SQLException {
 			Order o = new Order();
@@ -92,7 +92,7 @@ public final class ResultSetHandlerFactory {
 		}
 	};
 	
-	public final static ResultSetHandler<Integer> getCountResultSetHandler() {
+	public static ResultSetHandler<Integer> getCountResultSetHandler() {
 		return new ResultSetHandler<Integer>() {
 			@Override
 			public Integer handle(ResultSet rs) throws SQLException {
@@ -105,7 +105,7 @@ public final class ResultSetHandlerFactory {
 		};
 	}
 
-	public final static <T> ResultSetHandler<T> getSingleResultSetHandler(final ResultSetHandler<T> oneRowResultSetHandler) {
+	public static <T> ResultSetHandler<T> getSingleResultSetHandler(final ResultSetHandler<T> oneRowResultSetHandler) {
 		return new ResultSetHandler<T>() {
 			@Override
 			public T handle(ResultSet rs) throws SQLException {
@@ -118,7 +118,7 @@ public final class ResultSetHandlerFactory {
 		};
 	}
 
-	public final static <T> ResultSetHandler<List<T>> getListResultSetHandler(final ResultSetHandler<T> oneRowResultSetHandler) {
+	public static <T> ResultSetHandler<List<T>> getListResultSetHandler(final ResultSetHandler<T> oneRowResultSetHandler) {
 		return new ResultSetHandler<List<T>>() {
 			@Override
 			public List<T> handle(ResultSet rs) throws SQLException {
