@@ -33,6 +33,16 @@ public final class JDBCUtils {
 		}
 	}
 	
+	public static void insertBatch(Connection c, String sql, List<Object[]> parametersList) throws SQLException {
+		try (PreparedStatement ps = c.prepareStatement(sql)) {
+			for (Object[] parameters : parametersList) {
+				populatePreparedStatement(ps, parameters);
+				ps.addBatch();
+			}
+			ps.executeBatch();
+		}
+	}
+	
 	public static void populateSqlAndParams(StringBuilder sql, List<Object> params, List<Integer> list, String expression) {
 		if (list != null && !list.isEmpty()) {
 			sql.append(" and (");

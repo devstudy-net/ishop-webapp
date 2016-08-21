@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.devstudy.ishop.Constants;
 import net.devstudy.ishop.servlet.AbstractController;
 import net.devstudy.ishop.util.RoutingUtils;
 import net.devstudy.ishop.util.SessionUtils;
@@ -34,6 +35,10 @@ public class SignInController extends AbstractController {
 		if (SessionUtils.isCurrentAccountCreated(req)) {
 			RoutingUtils.redirect("/my-orders", req, resp);
 		} else {
+			String targetUrl = req.getParameter("target");
+			if (targetUrl != null) {
+				req.getSession().setAttribute(Constants.SUCCESS_REDIRECT_URL_AFTER_SIGNIN, targetUrl);
+			}
 			RoutingUtils.redirect(getSocialService().getAuthorizeUrl(), req, resp);
 		}
 	}

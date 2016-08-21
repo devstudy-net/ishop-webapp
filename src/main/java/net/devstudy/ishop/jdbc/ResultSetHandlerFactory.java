@@ -7,6 +7,8 @@ import java.util.List;
 
 import net.devstudy.ishop.entity.Account;
 import net.devstudy.ishop.entity.Category;
+import net.devstudy.ishop.entity.Order;
+import net.devstudy.ishop.entity.OrderItem;
 import net.devstudy.ishop.entity.Producer;
 import net.devstudy.ishop.entity.Product;
 
@@ -63,6 +65,30 @@ public final class ResultSetHandlerFactory {
 			a.setEmail(rs.getString("email"));
 			a.setName(rs.getString("name"));
 			return a;
+		}
+	};
+	
+	public final static ResultSetHandler<OrderItem> ORDER_ITEM_RESULT_SET_HANDLER = new ResultSetHandler<OrderItem>() {
+		@Override
+		public OrderItem handle(ResultSet rs) throws SQLException {
+			OrderItem orderItem = new OrderItem();
+			orderItem.setId(rs.getLong("oid"));
+			orderItem.setCount(rs.getInt("count"));
+			orderItem.setIdOrder(rs.getLong("id_order"));
+			Product p = PRODUCT_RESULT_SET_HANDLER.handle(rs);
+			orderItem.setProduct(p);
+			return orderItem;
+		}
+	};
+
+	public final static ResultSetHandler<Order> ORDER_RESULT_SET_HANDLER = new ResultSetHandler<Order>() {
+		@Override
+		public Order handle(ResultSet rs) throws SQLException {
+			Order o = new Order();
+			o.setId(rs.getLong("id"));
+			o.setCreated(rs.getTimestamp("created"));
+			o.setIdAccount(rs.getInt("id_account"));
+			return o;
 		}
 	};
 	

@@ -1,5 +1,8 @@
 package net.devstudy.ishop.service;
 
+import java.util.List;
+
+import net.devstudy.ishop.entity.Order;
 import net.devstudy.ishop.form.ProductForm;
 import net.devstudy.ishop.model.CurrentAccount;
 import net.devstudy.ishop.model.ShoppingCart;
@@ -21,4 +24,12 @@ public interface OrderService {
 	ShoppingCart deserializeShoppingCart(String string);
 	
 	CurrentAccount authentificate(SocialAccount socialAccount);
+	
+	long makeOrder (ShoppingCart shoppingCart, CurrentAccount currentAccount);
+	
+	Order findOrderById(long id, CurrentAccount currentAccount);
+	
+	List<Order> listMyOrders(CurrentAccount currentAccount, int page, int limit);
+	
+	int countMyOrders(CurrentAccount currentAccount);
 }

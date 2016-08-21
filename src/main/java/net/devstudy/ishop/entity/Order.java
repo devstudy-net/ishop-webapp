@@ -19,6 +19,12 @@ public class Order extends AbstractEntity<Long>{
 
 	}
 
+	public Order(Integer idAccount, Timestamp created) {
+		super();
+		this.idAccount = idAccount;
+		this.created = created;
+	}
+
 	public Integer getIdAccount() {
 		return idAccount;
 	}
