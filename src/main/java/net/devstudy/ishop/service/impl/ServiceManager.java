@@ -1,22 +1,21 @@
 package net.devstudy.ishop.service.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.SQLException;
-import java.util.Properties;
-
-import javax.servlet.ServletContext;
-
+import net.devstudy.ishop.service.OrderService;
+import net.devstudy.ishop.service.ProductService;
+import net.devstudy.ishop.service.SocialService;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.devstudy.ishop.service.OrderService;
-import net.devstudy.ishop.service.ProductService;
-import net.devstudy.ishop.service.SocialService;
+import javax.servlet.ServletContext;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
+import java.util.Objects;
+import java.util.Properties;
 
 /**
- * 
+ *
  * @author devstudy
  * @see http://devstudy.net
  */
@@ -40,7 +39,17 @@ public class ServiceManager {
 		return socialService;
 	}
 	public String getApplicationProperty(String key) {
-		return applicationProperties.getProperty(key);
+		String value = applicationProperties.getProperty(key);
+		if(value.startsWith("${")){
+			if(value.endsWith("}")){
+				String variable = value.substring(2, value.length()-1);
+				return Objects.requireNonNull(System.getenv(variable), "Variable '"+variable+"' not defined");
+			} else {
+				throw new IllegalArgumentException("Missing }");
+			}
+		} else {
+			return value;
+		}
 	}
 	public void close() {
 		try {
@@ -62,7 +71,7 @@ public class ServiceManager {
 		orderService = new OrderServiceImpl(dataSource);
 		socialService = new FacebookSocialService(this);
 	}
-	
+
 	private BasicDataSource createDataSource(){
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDefaultAutoCommit(false);
@@ -75,7 +84,7 @@ public class ServiceManager {
 		dataSource.setMaxTotal(Integer.parseInt(getApplicationProperty("db.pool.maxSize")));
 		return dataSource;
 	}
-	
+
 	private void loadApplicationProperties(){
 		try(InputStream in = ServiceManager.class.getClassLoader().getResourceAsStream("application.properties")) {
 			applicationProperties.load(in);
